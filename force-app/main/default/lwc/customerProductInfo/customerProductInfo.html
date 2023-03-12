@@ -1,0 +1,96 @@
+<template>
+    <!--lightning-layout is not supported in IE11 hence slds with div was used-->
+    <template if:true={customerProductInfo} >
+        <lightning-layout multiple-rows="true" class="data-container">
+            <lightning-layout-item padding="around-small" size="12" class="section-title">
+                <p>Customer Product Information</p>
+            </lightning-layout-item>
+            
+            <lightning-layout-item padding="around-small" size="12">
+                <lightning-layout>
+                    <lightning-layout-item padding="around-small" size="6" class="price-container">
+                        <p title="Customer Product">Product</p>
+                    </lightning-layout-item>
+                    <lightning-layout-item padding="around-small" size="6" class="price-container product-Info">
+                        <p>{customerProductInfo.productName}</p>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </lightning-layout-item>
+
+            <lightning-layout-item padding="around-small" size="12">
+                <lightning-layout>
+                    <lightning-layout-item padding="around-small" size="6" class="price-container">
+                        <p title="Home Country">Home Country</p>
+                    </lightning-layout-item>
+                    <lightning-layout-item padding="around-small" size="6" class="price-container product-Info">
+                        <p>{customerProductInfo.homeCountry}</p>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </lightning-layout-item>
+
+            <lightning-layout-item padding="around-small" size="12">
+                <lightning-layout>
+                    <lightning-layout-item padding="around-small" size="6" class="price-container">
+                        <p title="Home Country">Base Monthly Fee</p>
+                    </lightning-layout-item>
+                    <lightning-layout-item padding="around-small" size="6" class="price-container product-Info">
+                        <template if:true={isMonthlyFeeAvailable}>
+                            <div>
+                                {customerProductInfo.monthlyFee}
+                            </div>
+                        </template>
+                        <template if:false={isMonthlyFeeAvailable}>
+                            <div>
+                                <p><lightning-formatted-number value={customerProductInfo.monthlyFee} format-style="currency" currency-code={customerProductInfo.currencyIsoCode}></lightning-formatted-number></p>
+                            </div>
+                        </template>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </lightning-layout-item>
+
+            <lightning-layout-item padding="around-small" size="12">
+                <lightning-layout>
+                    <lightning-layout-item padding="around-small" size="6" class="price-container">
+                        <p title="ATM Fee">ATM Fee</p>
+                    </lightning-layout-item>
+                    <lightning-layout-item padding="around-small" size="6" class="price-container product-Info">
+                        <template if:true={isAtmFeeApplicable}>
+                            <div>
+                                {customerProductInfo.atmFee}
+                            </div>
+                        </template>
+                        <template if:false={isAtmFeeApplicable}>
+                            <div><p><lightning-formatted-number value={customerProductInfo.atmFee} format-style="percent-fixed" maximum-fraction-digits="1"></lightning-formatted-number></p></div>
+                        </template>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </lightning-layout-item>
+
+            <lightning-layout-item padding="around-small" size="12">
+                <lightning-layout>
+                    <lightning-layout-item padding="around-small" size="6" class="price-container">
+                        <p title="Card Replacement Fee">Card Replacement Fee</p>
+                    </lightning-layout-item>
+                    <lightning-layout-item padding="around-small" size="6" class="price-container product-Info">
+                        <div><p><lightning-formatted-number value={customerProductInfo.cardReplaceFee} format-style="currency" currency-code={customerProductInfo.currencyIsoCode}></lightning-formatted-number></p></div>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </lightning-layout-item>
+
+            <template if:true={customerProductInfo.otherProducts}>
+                <template for:each={customerProductInfo.otherProducts} for:item="product">
+                    <lightning-layout-item key={product.Id} padding="around-small" size="12">
+                        <lightning-layout>
+                            <lightning-layout-item padding="around-small" size="6" class="price-container">
+                                <p title={product.Product2.Name}>{product.Product2.Name}</p>
+                            </lightning-layout-item>
+                            <lightning-layout-item padding="around-small" size="6" class="price-container product-Info">
+                                <div><p><lightning-formatted-number value={customerProductInfo.UnitPrice} format-style="currency" currency-code={customerProductInfo.currencyIsoCode}></lightning-formatted-number></p></div>
+                            </lightning-layout-item>
+                        </lightning-layout>
+                    </lightning-layout-item>
+                </template>
+            </template>
+        </lightning-layout>
+    </template>
+</template>

@@ -1,0 +1,23 @@
+.data-container{
+    padding: 20px;
+    background-color: white;
+}
+
+.price-container{
+    padding-block: 20px;
+    border-bottom: solid 1px;
+    border-color: lightgrey;
+}
+
+.section-title{
+    font-size: 15px;
+    color: blue;
+    font-weight: inherit;
+    padding-bottom: 20px;
+    border-bottom: solid 1px;
+    border-color: lightgrey;
+}
+
+.product-Info{
+    font-weight: bold;
+}
